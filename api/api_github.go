@@ -61,6 +61,7 @@ func (h *GithubProxyHandler) cachedCoToken(w http.ResponseWriter, r *http.Reques
 	}
 	coToken, err := h.coTokenCache.Get(r.Context(), authToken)
 	if err == nil {
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		w.Write(coToken)
 		return
 	}
