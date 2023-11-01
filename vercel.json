@@ -1,8 +1,12 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/api/api_github.go"
+      "source": "/github/(.*)",
+      "destination": "/api/github/github.go"
+    },
+    {
+      "source": "/openai/(.*)",
+      "destination": "/api/openai/openai.go"
     }
   ]
 }

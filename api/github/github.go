@@ -14,7 +14,7 @@ import (
 )
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-	handler := middleware.VerifyRequestMiddleware(githubProxyHandler)
+	handler := middleware.RemoveFirstPathElement(middleware.VerifyRequestMiddleware(githubProxyHandler))
 	handler.ServeHTTP(w, r)
 }
 

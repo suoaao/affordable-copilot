@@ -2,12 +2,14 @@ package main
 
 import (
 	"fmt"
-	handler "github.com/suoaao/affordable-ai/api"
+	github "github.com/suoaao/affordable-ai/api/github"
+	openai "github.com/suoaao/affordable-ai/api/openai"
 	"net/http"
 )
 
 func main() {
-	http.HandleFunc("/", handler.Handler)
+	http.HandleFunc("/github/", github.Handler)
+	http.HandleFunc("/openai/", openai.Handler)
 	fmt.Println("Starting server at port 8080")
 	err := http.ListenAndServe(":8080", nil) // 设置监听的端口
 	if err != nil {
