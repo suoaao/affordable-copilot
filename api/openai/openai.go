@@ -13,7 +13,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	handler.ServeHTTP(w, r)
 }
 
-var openaiProxy, _ = NewOpenaiProxyHandler(conf.OpenaiKey)
+var openaiProxy, _ = NewOpenaiProxyHandler(conf.Conf.Openai.ApiKey)
 
 type OpenaiProxyHandler struct {
 	apiKey string

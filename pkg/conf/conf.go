@@ -1,25 +1,29 @@
 package conf
 
-import "os"
-
-var (
-	AuthToken = os.Getenv("AUTH_TOKEN")
-	GhuToken  = os.Getenv("GHU_TOKEN")
-	RedisURL  = os.Getenv("REDIS_URL")
-	OpenaiKey = os.Getenv("OPENAI_KEY")
+import (
+	"github.com/kelseyhightower/envconfig"
 )
 
+type copilotConf struct {
+	GhuToken string `envconfig:"GHU_TOKEN"`
+}
+
+type openaiConf struct {
+	ApiKey string `envconfig:"OPENAI_KEY"`
+}
+
+type conf struct {
+	AuthToken string `required:"true" envconfig:"AUTH_TOKEN"`
+	RedisURL  string `envconfig:"REDIS_URL"`
+	Copilot   copilotConf
+	Openai    openaiConf
+}
+
+var Conf conf
+
 func init() {
-	if len(AuthToken) < 20 {
-		panic("AUTH_TOKEN is invalid")
-	}
-	if len(GhuToken) < 20 {
-		panic("GhuToken is invalid")
-	}
-	if len(RedisURL) < 10 {
-		panic("RedisURL is invalid")
-	}
-	if len(OpenaiKey) < 10 {
-		panic("OpenaiKey is invalid")
+	err := envconfig.Process("", &Conf)
+	if err != nil {
+		panic(err)
 	}
 }

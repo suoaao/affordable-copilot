@@ -14,36 +14,36 @@ import (
 )
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-	handler := middleware.RemoveFirstPathElement(middleware.VerifyRequestMiddleware(githubProxyHandler))
+	handler := middleware.RemoveFirstPathElement(middleware.VerifyRequestMiddleware(copilotProxyHandler))
 	handler.ServeHTTP(w, r)
 }
 
-var githubProxyHandler, _ = NewGithubProxyHandler(conf.GhuToken)
+var copilotProxyHandler, _ = NewCopilotProxyHandler(conf.Conf.Copilot.GhuToken)
 
-type GithubProxyHandler struct {
+type CopilotProxyHandler struct {
 	ghuToken     string
 	proxy        *httputil.ReverseProxy
 	coTokenCache *cache.CoTokenCache
 }
 
-func NewGithubProxyHandler(ghuToken string) (*GithubProxyHandler, error) {
+func NewCopilotProxyHandler(ghuToken string) (*CopilotProxyHandler, error) {
 	var proxy, err = myHttputil.NewReverseProxy("https://api.github.com")
 	if err != nil {
 		return nil, err
 	}
-	return &GithubProxyHandler{
+	return &CopilotProxyHandler{
 		ghuToken:     ghuToken,
 		proxy:        proxy,
 		coTokenCache: cache.NewCoTokenCache(extension.Redis),
 	}, nil
 }
 
-func (h *GithubProxyHandler) ProxyRequest(w http.ResponseWriter, r *http.Request) {
-	r.Header.Set("Authorization", "token "+conf.GhuToken)
+func (h *CopilotProxyHandler) ProxyRequest(w http.ResponseWriter, r *http.Request) {
+	r.Header.Set("Authorization", "token "+h.ghuToken)
 	h.proxy.ServeHTTP(w, r)
 }
 
-func (h *GithubProxyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (h *CopilotProxyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch r.URL.Path {
 	case "/copilot_internal/v2/token":
 		h.cachedCoToken(w, r)
@@ -52,7 +52,7 @@ func (h *GithubProxyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (h *GithubProxyHandler) cachedCoToken(w http.ResponseWriter, r *http.Request) {
+func (h *CopilotProxyHandler) cachedCoToken(w http.ResponseWriter, r *http.Request) {
 	authToken, ok := r.Context().Value("auth_token").(string)
 	if !ok {
 		w.WriteHeader(http.StatusUnauthorized)
