@@ -10,7 +10,7 @@ import (
 func VerifyRequestMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		arr := strings.Split(r.Header.Get("Authorization"), " ")
-		if len(arr) != 2 || arr[1] != conf.Conf.AuthToken {
+		if len(arr) != 2 || !conf.Conf.Auth(arr[1]) {
 			w.WriteHeader(http.StatusUnauthorized)
 			w.Write([]byte("401 Unauthorized"))
 			return

@@ -5,9 +5,22 @@ import (
 )
 
 type conf struct {
-	AuthToken string `required:"true" envconfig:"AUTH_TOKEN"`
-	RedisURL  string `envconfig:"REDIS_URL"`
-	GhuToken  string `envconfig:"GHU_TOKEN"`
+	AdminAuthToken string   `required:"true" envconfig:"ADMIN_AUTH_TOKEN"`
+	AuthTokens     []string `envconfig:"AUTH_TOKENS"`
+	RedisURL       string   `envconfig:"REDIS_URL"`
+	GhuToken       string   `envconfig:"GHU_TOKEN"`
+}
+
+func (c *conf) Auth(authToken string) bool {
+	if authToken == c.AdminAuthToken {
+		return true
+	}
+	for _, t := range c.AuthTokens {
+		if authToken == t {
+			return true
+		}
+	}
+	return false
 }
 
 var Conf conf
