@@ -4,6 +4,7 @@ go 1.20
 
 require (
 	github.com/go-redis/cache/v9 v9.0.0
+	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/redis/go-redis/v9 v9.3.0
 )
 

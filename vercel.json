@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/api/api_github.go"
+      "destination": "/api/copilot.go"
     }
   ]
 }

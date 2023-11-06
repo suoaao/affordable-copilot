@@ -1,21 +1,20 @@
 package conf
 
-import "os"
-
-var (
-	AuthToken = os.Getenv("AUTH_TOKEN")
-	GhuToken  = os.Getenv("GHU_TOKEN")
-	RedisURL  = os.Getenv("REDIS_URL")
+import (
+	"github.com/kelseyhightower/envconfig"
 )
 
+type conf struct {
+	AuthToken string `required:"true" envconfig:"AUTH_TOKEN"`
+	RedisURL  string `envconfig:"REDIS_URL"`
+	GhuToken  string `envconfig:"GHU_TOKEN"`
+}
+
+var Conf conf
+
 func init() {
-	if len(AuthToken) < 20 {
-		panic("AUTH_TOKEN is invalid")
-	}
-	if len(GhuToken) < 20 {
-		panic("GhuToken is invalid")
-	}
-	if len(RedisURL) < 10 {
-		panic("RedisURL is invalid")
+	err := envconfig.Process("", &Conf)
+	if err != nil {
+		panic(err)
 	}
 }

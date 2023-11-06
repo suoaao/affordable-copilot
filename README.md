@@ -1,5 +1,3 @@
-# affordable-ai
+# affordable-copilot
 
-## Tools
-
-1. JetBrains Copilot Plugin Proxy
+## JetBrains Copilot Plugin Proxy

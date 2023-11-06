@@ -8,7 +8,7 @@ import (
 var Redis *redis.Client
 
 func init() {
-	opt, err := redis.ParseURL(conf.RedisURL)
+	opt, err := redis.ParseURL(conf.Conf.RedisURL)
 	if err != nil {
 		panic(err)
 	}
