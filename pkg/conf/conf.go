@@ -6,6 +6,7 @@ var (
 	AuthToken = os.Getenv("AUTH_TOKEN")
 	GhuToken  = os.Getenv("GHU_TOKEN")
 	RedisURL  = os.Getenv("REDIS_URL")
+	OpenaiKey = os.Getenv("OPENAI_KEY")
 )
 
 func init() {
@@ -17,5 +18,8 @@ func init() {
 	}
 	if len(RedisURL) < 10 {
 		panic("RedisURL is invalid")
+	}
+	if len(OpenaiKey) < 10 {
+		panic("OpenaiKey is invalid")
 	}
 }
