@@ -1,4 +1,4 @@
-module github.com/suoaao/affordable-ai
+module github.com/suoaao/affordable-copilot
 
 go 1.20
 

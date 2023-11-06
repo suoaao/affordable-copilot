@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"context"
-	"github.com/suoaao/affordable-ai/pkg/conf"
+	"github.com/suoaao/affordable-copilot/pkg/conf"
 	"net/http"
 	"strings"
 )

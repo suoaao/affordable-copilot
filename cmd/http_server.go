@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	handler "github.com/suoaao/affordable-ai/api"
+	"github.com/suoaao/affordable-copilot/api"
 	"net/http"
 )
 

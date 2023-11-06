@@ -1,13 +1,13 @@
-package api
+package handler
 
 import (
 	"context"
 	"encoding/json"
-	"github.com/suoaao/affordable-ai/pkg/cache"
-	"github.com/suoaao/affordable-ai/pkg/conf"
-	"github.com/suoaao/affordable-ai/pkg/extension"
-	myHttputil "github.com/suoaao/affordable-ai/pkg/httputil"
-	"github.com/suoaao/affordable-ai/pkg/middleware"
+	"github.com/suoaao/affordable-copilot/pkg/cache"
+	"github.com/suoaao/affordable-copilot/pkg/conf"
+	"github.com/suoaao/affordable-copilot/pkg/extension"
+	myHttputil "github.com/suoaao/affordable-copilot/pkg/httputil"
+	"github.com/suoaao/affordable-copilot/pkg/middleware"
 	"net/http"
 	"net/http/httputil"
 	"time"

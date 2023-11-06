@@ -2,7 +2,7 @@ package extension
 
 import (
 	"github.com/redis/go-redis/v9"
-	"github.com/suoaao/affordable-ai/pkg/conf"
+	"github.com/suoaao/affordable-copilot/pkg/conf"
 )
 
 var Redis *redis.Client
