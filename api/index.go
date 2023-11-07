@@ -73,10 +73,16 @@ func (h *CopilotProxyHandler) cachedCoToken(w http.ResponseWriter, r *http.Reque
 
 	h.ProxyRequest(w, r)
 
-	body, ok := <-portal
-	if !ok || len(body) == 0 {
+	var body []byte
+	select {
+	case body, ok = <-portal:
+		if !ok || len(body) == 0 {
+			return
+		}
+	case <-time.After(1 * time.Second):
 		return
 	}
+
 	resp := struct {
 		ExpiresAt int64 `json:"expires_at"`
 	}{}
