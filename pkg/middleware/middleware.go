@@ -21,7 +21,7 @@ func VerifyRequestMiddleware(next http.Handler) http.Handler {
 			isAuth = conf.Conf.Auth(authToken)
 		case arr[0] == "Basic":
 			data, err := base64.StdEncoding.DecodeString(arr[1])
-			authToken = string(data)
+			authToken = strings.Trim(string(data), ":")
 			if err != nil {
 				isAuth = false
 			} else {
