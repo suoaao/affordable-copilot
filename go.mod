@@ -1,6 +1,6 @@
 module github.com/suoaao/affordable-copilot
 
-go 1.20
+go 1.21
 
 require (
 	github.com/go-redis/cache/v9 v9.0.0
